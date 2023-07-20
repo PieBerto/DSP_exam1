@@ -1,0 +1,54 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id" : "http://www.my-schema.com/draft_schema.json",
+    "title": "Draft",
+    "description": "JSON Schema for Draft's review data structures",
+    "type":"object",
+    "additionalProperties": false,
+    "properties":{
+        "$schema": {
+            "type": "string",
+            "description": "path to the JSON Schema to use for the validation of the data structure"
+          },
+        "collaborationId":{
+            "type":"integer",
+            "description": "unique identifier of the the collaboration review"
+        },
+        "userId":{
+            "type":"integer",
+            "description": "unique identifier of the the user who has created this draft's review"
+        },
+        "agreement":{
+            "type":"boolean",
+            "description":"true if the user agree with the draft description and rating, false otherwise"
+        },
+        "description":{
+            "type":"string",
+            "description": "a textual description in case of disagreement with the draft",
+            "maxLength": 1000
+        } 
+    },
+    "required": ["collaborationId","userId","agreement"],
+    "dependencies": {
+        "agreement":{
+            "oneOf": [
+                {
+                    "properties": {
+                        "agreement":{
+                            "const": true
+                        }
+                    },
+                    "not":{"required":["description"]}
+                },
+                {
+                    "properties": {
+                        "agreement":{
+                            "const": false
+                        }
+                    },
+                    "required":["description"]
+                }
+            ]
+        }
+    }
+}

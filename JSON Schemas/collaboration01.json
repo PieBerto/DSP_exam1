@@ -1,0 +1,21 @@
+{
+    "$schema":"./collaboration_schema.json",
+    "collaborationId": 1,
+    "filmId": 1,
+    "author":1,
+    "rating":5,
+    "description":"I dislike this film, what do you think about it?",
+    "open":false,
+    "completed":true,
+    "review":[{
+        "collaborationId": 1,
+        "userId":2,
+        "agreement": false,
+        "description": "I like it"
+    },
+    {
+        "collaborationId": 1,
+        "userId":3,
+        "agreement": true
+    }]
+}

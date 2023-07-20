@@ -1,0 +1,7 @@
+{
+    "$schema":"./draftReview_schema.json",
+    "collaborationId": 1,
+    "userId":2,
+    "agreement": false,
+    "description": "I like it"
+}

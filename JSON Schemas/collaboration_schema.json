@@ -1,0 +1,76 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id" : "http://www.my-schema.com/collaboration_schema.json",
+    "title": "Collaboration",
+    "description": "JSON Schema for Collaboration data structures",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "$schema": {
+        "type": "string",
+        "description": "path to the JSON Schema to use for the validation of the data structure"
+      },
+      "collaborationId":{
+        "type":"integer",
+        "description": "unique identifier of the collaboration"
+      },
+      "filmId": {
+        "type":"integer",
+        "description": "unique identifier of the film on which is the collaboration review"
+      },
+      "author": {
+        "type": "integer",
+        "description": "unique identifier of the the user who has created the draft description"
+      },
+      "rating": {
+        "type": "integer",
+        "description": "the rating the reviewer has given to the film",
+        "minimum": 1,
+        "maximum": 10
+      },
+      "description": {
+        "type": "string",
+        "description": "a textual description of the review, if completed = true, else description of the draft",
+        "maxLength": 1000
+      },
+      "open":{
+        "type":"boolean",
+        "description": "false if the draft is closed, true if open"
+      },
+      "completed":{
+        "type":"boolean",
+        "description": "true if all the reviewers agree on the draft, false otherwise"
+      },
+      "review":{
+        "type":"array",
+        "items":{
+            "$ref": "./draftReview_schema.json"
+        }
+      }
+    },
+    "required": ["collaborationId","filmId","author","rating","description"],
+    "dependencies": {
+        "completed": {
+            "oneOf": [
+                {
+                    "properties": {
+                        "completed":{
+                            "const": true
+                        },
+                        "open":{
+                            "const":false
+                        }
+                    }
+                },
+                {
+                    "properties": {
+                        "completed":{
+                            "const": false
+                        }
+                    }
+                }
+            ]
+        }
+    }
+  }
+  
